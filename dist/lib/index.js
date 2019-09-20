@@ -1,30 +1,58 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.createFile = createFile;
 exports.createDir = createDir;
-exports.oneOf = exports.getCurrentPath = void 0;
+exports.getSrcDirPath = exports.bindWith = exports.oneOf = exports.getCurrentPath = void 0;
 
 var _fs = _interopRequireDefault(require("fs"));
 
+var _path = _interopRequireDefault(require("path"));
+
 var _ramda = require("ramda");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const getCurrentPath = () => process.cwd();
+var getCurrentPath = function getCurrentPath() {
+  return process.cwd();
+};
 
 exports.getCurrentPath = getCurrentPath;
 
-const oneOf = list => (0, _ramda.includes)(_ramda.__, list);
+var oneOf = function oneOf(list) {
+  return function (param) {
+    return (0, _ramda.includes)(param, list);
+  };
+};
 
 exports.oneOf = oneOf;
 
+var bindWith = function bindWith(fn) {
+  for (var _len = arguments.length, params = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    params[_key - 1] = arguments[_key];
+  }
+
+  return (0, _ramda.partial)(fn, params);
+};
+
+exports.bindWith = bindWith;
+
+var getSrcDirPath = function getSrcDirPath() {
+  return _path["default"].join(getCurrentPath(), 'src');
+};
+
+exports.getSrcDirPath = getSrcDirPath;
+
 function createFile(path, data) {
-  return new Promise(resolve => _fs.default.writeFile(path, data, resolve));
+  return new Promise(function (resolve) {
+    return _fs["default"].writeFile(path, data, resolve);
+  });
 }
 
 function createDir(path) {
-  return new Promise(resolve => _fs.default.mkdir(path, null, resolve.bind(null, path)));
+  return new Promise(function (resolve) {
+    return _fs["default"].mkdir(path, null, (0, _ramda.partial)(resolve, path));
+  });
 }

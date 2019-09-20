@@ -1,62 +1,23 @@
 "use strict";
 
-var _commander = _interopRequireDefault(require("commander"));
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-var _path = _interopRequireDefault(require("path"));
+var _commander = _interopRequireDefault(require("commander"));
 
 var _ramda = require("ramda");
 
-var _templates = require("./templates");
-
 var _lib = require("./lib");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _logic = require("./logic");
 
-const componentDefinition = [{
-  file: "index.js",
-  content: _templates.rootFile
-}, {
-  file: "[name].js",
-  content: _templates.statelessComponent
-}, {
-  file: "[name].atoms.js",
-  content: _templates.atomsFile
-}];
-const containerDefinition = [{
-  file: "index.js",
-  content: _templates.rootFile
-}, {
-  file: "[name].js",
-  content: _templates.statelessComponent
-}, {
-  file: "[name].atoms.js",
-  content: _templates.atomsFile
-}];
-const pageDefinition = [{
-  file: "index.js",
-  content: _templates.rootFile
-}, {
-  file: "[name].js",
-  content: _templates.statelessComponent
-}, {
-  file: "[name].atoms.js",
-  content: _templates.atomsFile
-}];
-
-function resolveComponent(mountPoint, definition) {
-  return {};
+function runCreate(type, name) {
+  var component = (0, _logic.genComponent)({
+    type: type,
+    name: name
+  });
+  (0, _logic.writeComponentOnDisk)(component);
 }
 
-function createComponent(type, componentName) {
-  console.log(type, componentName); // const componentPath = path.join(getCurrentPath(), componentName);
-  // createDir(componentPath).then(() =>
-  //   map(
-  //     ({ name, layout }) => createFile(path.join(componentPath, name), layout),
-  //     componentTree
-  //   )
-  // );
-}
+_commander["default"].command('create <type> <name>').description('Create a new component, page or container Ex: react-cli create component List').action((0, _ramda.cond)([[(0, _lib.oneOf)(['page', 'component', 'container']), runCreate], [_ramda.T, console.log]]));
 
-_commander.default.command("create <type> <name>").description("Create a new component, page or container Ex: `react-cli create component List`").action((0, _ramda.cond)([[(0, _lib.oneOf)(["component", "page", "container"]), createComponent], [_ramda.T, () => console.log("Wrong argument")]]));
-
-_commander.default.parse(process.argv);
+_commander["default"].parse(process.argv);
