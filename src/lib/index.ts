@@ -15,7 +15,6 @@ export type Component = {
 /**
  * Receives a predicate and retuns a funcion who receives
  * a ComponentProps, and compare the `type` field with de predicate
- *
  * @param pred
  */
 export const typeIs = (pred) => ({ type }: ComponentProps) =>
@@ -37,20 +36,18 @@ export const oneOf = (list) => (param) => includes(param, list);
 /**
  * Receives a funcion and params, and returns caller function with
  * the giver params
- *
  * @param fn
  * @param params
  */
 export const bindWith = (fn, ...params) => partial(fn, params);
 
 /**
- * Get the current project 'src' dir path
+ * Get the current project `src` dir path
  */
 export const getSrcDirPath = () => path.join(getCurrentPath(), 'src');
 
 /**
  * Create a file on disk
- *
  * @param path path where to write the file
  * @param data content of the file
  */
@@ -60,7 +57,6 @@ export function createFile(path, data) {
 
 /**
  * Create a dir on disk
- *
  * @param path path where to write the dir
  */
 export function createDir(path) {

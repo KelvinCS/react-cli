@@ -30,7 +30,6 @@ const genComponent = (props: ComponentProps): Component =>
 
 /**
  * Receives a resolved component e writes on disk
- *
  * @param component
  */
 async function writeComponentOnDisk(component: Component) {
@@ -44,7 +43,6 @@ async function writeComponentOnDisk(component: Component) {
 /**
  * Receives a component definition and retuns a reolved component
  * with the final path
- *
  * @param component
  */
 function resolveComponent(component: ComponentDefinition): Component {
