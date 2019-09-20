@@ -61,21 +61,21 @@ function resolveComponent(component: ComponentDefinition): Component {
 }
 
 /**
- * Returns a resolved statefull component, given the params
+ * Returns a resolved statefull component, given the props
  * @param props
  */
 const genStatefullComponent = (props: ComponentProps) =>
   resolveComponent(getStatefullComponent(props));
 
 /**
- * Returns a resolved stateless component, given the params
+ * Returns a resolved stateless component, given the props
  * @param props
  */
 const genStatelessComponent = (props: ComponentProps) =>
   resolveComponent(getStatelessComponent(props));
 
 /**
- * Returns a resolved page component, given the params
+ * Returns a resolved page component, given the props
  * @param props
  */
 const genPageComponent = (props: ComponentProps) =>
