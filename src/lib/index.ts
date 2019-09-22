@@ -17,8 +17,7 @@ export type Component = {
  * a ComponentProps, and compare the `type` field with de predicate
  * @param pred
  */
-export const typeIs = (pred) => ({ type }: ComponentProps) =>
-  equals(pred, type);
+export const ofType = (pred: string) => ({ type }) => equals(pred, type);
 
 /**
  * Get the dir path which the current terminal is
@@ -31,7 +30,7 @@ export const getCurrentPath = () => process.cwd();
  *
  * @param list
  */
-export const oneOf = (list) => (param) => includes(param, list);
+export const oneOf = (list: any[]) => (param: any) => includes(param, list);
 
 /**
  * Receives a funcion and params, and returns caller function with
@@ -39,7 +38,7 @@ export const oneOf = (list) => (param) => includes(param, list);
  * @param fn
  * @param params
  */
-export const bindWith = (fn, ...params) => partial(fn, params);
+export const bindWith = (fn: () => any, ...params: any) => partial(fn, params);
 
 /**
  * Get the current project `src` dir path
@@ -51,7 +50,7 @@ export const getSrcDirPath = () => path.join(getCurrentPath(), 'src');
  * @param path path where to write the file
  * @param data content of the file
  */
-export function createFile(path, data) {
+export function createFile(path: string, data: any) {
   return new Promise((resolve) => fs.writeFile(path, data, resolve));
 }
 
@@ -59,6 +58,8 @@ export function createFile(path, data) {
  * Create a dir on disk
  * @param path path where to write the dir
  */
-export function createDir(path) {
-  return new Promise((resolve) => fs.mkdir(path, null, partial(resolve, path)));
+export function createDir(path: string) {
+  return new Promise((resolve) =>
+    fs.mkdir(path, null, bindWith(resolve, path))
+  );
 }

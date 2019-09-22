@@ -7,7 +7,7 @@ import {
   createFile,
   ComponentProps,
   Component,
-  typeIs
+  ofType
 } from './lib';
 
 import {
@@ -23,9 +23,9 @@ import {
  */
 const genComponent = (props: ComponentProps): Component =>
   cond([
-    [typeIs('container'), genStatefullComponent],
-    [typeIs('component'), genStatelessComponent],
-    [typeIs('page'), genPageComponent]
+    [ofType('container'), genStatefullComponent],
+    [ofType('component'), genStatelessComponent],
+    [ofType('page'), genPageComponent]
   ])(props);
 
 /**
