@@ -5,8 +5,7 @@ import {
   genComponent,
   writeComponentOnDisk,
   createReactApp,
-  createOrganizationalFolders,
-  installModules
+  createOrganizationalFolders
 } from './logic';
 
 async function runCreate(type, name) {
