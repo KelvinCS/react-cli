@@ -1,14 +1,30 @@
 import program from 'commander';
 import { cond, T } from 'ramda';
 import { oneOf } from './lib';
-import { genComponent, writeComponentOnDisk } from './logic';
+import {
+  genComponent,
+  writeComponentOnDisk,
+  createReactApp,
+  createOrganizationalFolders,
+  installModules
+} from './logic';
 
-function runCreate(type, name) {
+async function runCreate(type, name) {
   const props = { type, name };
   const component = genComponent(props);
 
-  writeComponentOnDisk(component);
+  return writeComponentOnDisk(component);
 }
+
+async function runInit(appName) {
+  await createReactApp(appName);
+  await createOrganizationalFolders(appName);
+}
+
+program
+  .command('init <name>')
+  .description('Init a new React project')
+  .action(runInit);
 
 program
   .command('create <type> <name>')
@@ -22,4 +38,6 @@ program
     ])
   );
 
-program.parse(process.argv);
+export function cli(argv: string[]) {
+  program.parse(argv);
+}
