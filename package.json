@@ -2,7 +2,7 @@
   "name": "react-cli",
   "version": "1.0.0",
   "description": "Cli meant to simplify my workflow with react",
-  "main": "index.js",
+  "main": "dist/index.js",
   "author": "Kelvin CS",
   "license": "MIT",
   "private": false,
@@ -10,6 +10,17 @@
     "commander": "^3.0.1",
     "ramda": "^0.26.1"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "@kelvin1046/react-cli": "bin/react-cli.js",
+    "react-cli": "bin/react-cli.js"
+  },
+  "keywords": [
+    "cli",
+    "react-cli"
+  ],
   "devDependencies": {
     "@babel/cli": "^7.6.0",
     "@babel/core": "^7.6.0",
@@ -28,6 +39,7 @@
   },
   "scripts": {
     "build": "babel src -d dist --extensions '.ts'",
-    "start": "npm run build && node dist/index.js"
+    "start:dev": "npm run build && node bin/react-cli.js",
+    "start": "node bin/react-cli.js"
   }
 }
