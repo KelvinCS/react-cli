@@ -4,13 +4,14 @@ import { map, cond, join, when, always } from 'ramda';
 import {
   createDir,
   getSrcDirPath,
-  createFile,
   ComponentProps,
   Component,
   ofType,
   executeCommand,
   getCurrentPath,
-  notNil
+  notNil,
+  createFileRecursively,
+  createDirRecursively
 } from './lib';
 
 import {
@@ -37,9 +38,9 @@ const genComponent = (props: ComponentProps): Component =>
  */
 async function writeComponentOnDisk(component: Component) {
   const createFiles = (files) =>
-    map(({ path, content }) => createFile(path, content), files);
+    map(({ path, content }) => createFileRecursively(path, content), files);
 
-  await createDir(component.path);
+  await createDirRecursively(component.path);
   return Promise.all(createFiles(component.files));
 }
 
