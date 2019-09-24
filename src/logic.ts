@@ -1,5 +1,5 @@
 import path from 'path';
-import { map, cond } from 'ramda';
+import { map, cond, join, when, always } from 'ramda';
 
 import {
   createDir,
@@ -7,7 +7,10 @@ import {
   createFile,
   ComponentProps,
   Component,
-  ofType
+  ofType,
+  executeCommand,
+  getCurrentPath,
+  notNil
 } from './lib';
 
 import {
@@ -57,6 +60,39 @@ function resolveComponent(component: ComponentDefinition): Component {
     }))
   };
 }
+
+/**
+ * Create the folders
+ * @param appName
+ */
+export async function createOrganizationalFolders(appName: string) {
+  const srcDir = path.join(getCurrentPath(), appName, 'src');
+
+  const createFolder = (folder) => createDir(path.join(srcDir, folder));
+
+  return Promise.all([
+    createFolder('pages'),
+    createFolder('components'),
+    createFolder('containers')
+  ]);
+}
+
+/**
+ * Use create-react-app to init a new application
+ * @param appName
+ */
+export const createReactApp = (appName: string) =>
+  executeCommand(`npx create-react-app ${appName}`);
+
+export function installModules(modules: string[], directory?: string) {
+  return installModule(join(' ', modules), directory);
+}
+
+export const installModule = (moduleName, directory?: string) =>
+  executeCommand(
+    `yarn add ${moduleName}`,
+    when(notNil, always({ cwd: directory }))(directory)
+  );
 
 /**
  * Returns a resolved statefull component, given the props
