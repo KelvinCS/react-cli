@@ -98,8 +98,9 @@ export async function reduceAsync(
 }
 
 /**
- * Receive an array of promises called tasks, each task receives the result of
- * its predecessor as a param. The first task receives the params from `initialParams`.
+ * Receives an array of functions, called tasks, that returns a promise,
+ * each task receives the result of its predecessor as a param.
+ * The first task receives the params from `initialParams`.
  * @param tasks array of functions that returns a promise
  * @param initialParams params to be passed to the fist task
  */

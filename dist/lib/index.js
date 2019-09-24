@@ -125,8 +125,9 @@ function reduceAsync(_x, _x2, _x3) {
   return _reduceAsync.apply(this, arguments);
 }
 /**
- * Receive an array of promises called tasks, each task receives the result of
- * its predecessor as a param. The first task receives the params from `initialParams`.
+ * Receives an array of functions, called tasks, that returns a promise,
+ * each task receives the result of its predecessor as a param.
+ * The first task receives the params from `initialParams`.
  * @param tasks array of functions that returns a promise
  * @param initialParams params to be passed to the fist task
  */
@@ -166,7 +167,7 @@ function promiseWaterfall(_x4, _x5) {
   return _promiseWaterfall.apply(this, arguments);
 }
 /**
- * Recursively create a dir or file recursively
+ * Recursively create a dir or file
  * @param path
  * @param data
  */
