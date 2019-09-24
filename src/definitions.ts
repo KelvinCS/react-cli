@@ -4,6 +4,7 @@ import {
   statefullComponent,
   atomsFile
 } from './templates';
+
 import { ComponentProps } from './lib';
 
 type ComponentFile = {
