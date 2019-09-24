@@ -119,7 +119,7 @@ export async function promiseWaterfall(
 }
 
 /**
- * Recursively create a dir or file recursively
+ * Recursively create a dir or file
  * @param path
  * @param data
  */
