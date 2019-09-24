@@ -2,7 +2,6 @@ import path from 'path';
 import { map, cond, join, when, always } from 'ramda';
 
 import {
-  createDir,
   getSrcDirPath,
   ComponentProps,
   Component,
@@ -11,7 +10,8 @@ import {
   getCurrentPath,
   notNil,
   createFileRecursively,
-  createDirRecursively
+  createDirRecursively,
+  createDir
 } from './lib';
 
 import {
