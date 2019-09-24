@@ -60,12 +60,12 @@ function _writeComponentOnDisk() {
               return (0, _ramda.map)(function (_ref) {
                 var path = _ref.path,
                     content = _ref.content;
-                return (0, _lib.createFile)(path, content);
+                return (0, _lib.createFileRecursively)(path, content);
               }, files);
             };
 
             _context.next = 3;
-            return (0, _lib.createDir)(component.path);
+            return (0, _lib.createDirRecursively)(component.path);
 
           case 3:
             return _context.abrupt("return", Promise.all(createFiles(component.files)));
